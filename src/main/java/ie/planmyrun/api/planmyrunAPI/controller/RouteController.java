@@ -1,10 +1,10 @@
-package controller;
+package ie.planmyrun.api.planmyrunAPI.controller;
 
-import entity.Route;
+import ie.planmyrun.api.planmyrunAPI.entity.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import service.RouteService;
+import ie.planmyrun.api.planmyrunAPI.service.RouteService;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package entity;
+package ie.planmyrun.api.planmyrunAPI.entity;
 
 import jakarta.persistence.*;
 
