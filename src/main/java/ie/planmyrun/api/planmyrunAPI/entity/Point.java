@@ -1,5 +1,6 @@
 package ie.planmyrun.api.planmyrunAPI.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +17,7 @@ public class Point {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "route_id")
+    @JsonBackReference
     private Route route;
 
     // Getters and setters

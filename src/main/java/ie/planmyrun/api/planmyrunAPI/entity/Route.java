@@ -1,5 +1,6 @@
 package ie.planmyrun.api.planmyrunAPI.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,8 @@ public class Route {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
     private List<Point> points = new ArrayList<>();
 
     // Getters and setters
