@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+// The Service holds all the 'business logic'. This is stuff like methods to perform
+// CRUD operations as well as anything like if input values needed to have any math
+// performed on it before saving
+
 @Service
 public class RouteService {
 
