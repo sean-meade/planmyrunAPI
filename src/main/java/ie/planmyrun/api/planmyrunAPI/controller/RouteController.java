@@ -39,7 +39,7 @@ public class RouteController {
 
     // Map a GET request with the URL /route/{id} where id is the route. This request uses the
     // getRouteById method from the route service
-    @GetMapping("/route/{id}")
+    @GetMapping("/{id}")
     // ResponseEntity is a class in Spring Boot used to represent an HTTP response, including
     // status code, headers, and body. Makes sure that a proper HTTP response is returned rather
     // than an object. You can use an object to define the data that is body of the response
