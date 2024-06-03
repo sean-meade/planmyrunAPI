@@ -11,19 +11,19 @@ A model describing a route.
 
 | Key        | Name | Type         | Extra Info               |
 | ---------- |------|--------------|--------------------------|
-| PrimaryKey | id   | Integer      | Unique id                |
+| PrimaryKey | id   | INTEGER      | Unique id                |
 |            | name | VARCHAR(255) | Name of Route - Not Null |
 
 ##### Point Model
 
 A model describing a point of a route
 
-| Key        | Name      | Type    | Extra Info               |
-|------------|-----------|---------|--------------------------|
-| PrimaryKey | id        | Integer |                          |
-|            | latitude  | DOUBLE  | latitude of point        |
-|            | longitude | DOUBLE  | longitude of point       |
-| ForeignKey | route_id  | BIGINT  | Reference to route by ID |
+| Key        | Name      | Type    | Extra Info                    |
+|------------|-----------|---------|-------------------------------|
+| PrimaryKey | id        | INTEGER |                               |
+|            | latitude  | DOUBLE  | latitude of point - Not Null  |
+|            | longitude | DOUBLE  | longitude of point - Not Null |
+| ForeignKey | route_id  | BIGINT  | Reference to route by ID      |
 
 #### API for PlanMyRun
 
