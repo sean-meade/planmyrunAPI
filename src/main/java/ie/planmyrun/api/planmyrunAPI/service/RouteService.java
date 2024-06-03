@@ -19,61 +19,82 @@ public class RouteService {
 
     private final RouteRepository routeRepository;
 
+    // Like in the Controller Autowired allows you to inject routeRepository when an instance
+    // of RouteService is created.
     @Autowired
     public RouteService(RouteRepository routeRepository) {
         this.routeRepository = routeRepository;
     }
 
+    // using the inbuilt method of the JpaRepository return all routes
     public List<Route> getAllRoutes() {
         return routeRepository.findAll();
     }
 
+    // using the inbuilt method of the JpaRepository return a route by id
     public Optional<Route> getRouteById(Long id) {
         return routeRepository.findById(id);
     }
 
-    public Route createRoute(RouteDTO routeDTO) {
-        Route route = new Route();
+    private void convertToRoute(RouteDTO routeDTO, Route route) {
+        // Set the name for the route
         route.setName(routeDTO.getName());
 
+        // Create a list to hold the points
         List<Point> points = new ArrayList<>();
+        // For every point in the route Data Transfer Object
         for (PointDTO pointDTO : routeDTO.getPoints()) {
+            // Create a new point and add the lat and long from the point Data Transfer Object
             Point point = new Point();
             point.setLatitude(pointDTO.getLatitude());
             point.setLongitude(pointDTO.getLongitude());
-            point.setRoute(route); // Set the route reference in the Point
+            // Set the route reference in the Point
+            point.setRoute(route);
+            // Add the point to the list
             points.add(point);
         }
+        // Set the points to the route
         route.setPoints(points);
+    }
 
+    // Create a Route using the help of the route Data Transfer Object
+    public Route createRoute(RouteDTO routeDTO) {
+
+        // Create route and set the name from thr routeDTO
+        Route route = new Route();
+
+        // Convert the RouteDTO to Route using the helper method
+        convertToRoute(routeDTO, route);
+
+        // save the route and return it
         return routeRepository.save(route);
     }
 
+    // Update route using the id and the RouteDTO
+    // Using Optional in case the route the doesn't exist
     public Optional<Route> updateRoute(Long id, RouteDTO routeDTO) {
+        // use the find by id to look for existingRoute. If none exists then an
+        // empty Optional is returned
         return routeRepository.findById(id).map(existingRoute -> {
-            existingRoute.setName(routeDTO.getName());
-
-            Set<Point> newPoints = new HashSet<>();
-            for (PointDTO pointDTO : routeDTO.getPoints()) {
-                Point point = new Point();
-                point.setLatitude(pointDTO.getLatitude());
-                point.setLongitude(pointDTO.getLongitude());
-                point.setRoute(existingRoute); // Set the route reference in the Point
-                newPoints.add(point);
-            }
-            existingRoute.getPoints().clear(); // Clear existing points
-            existingRoute.getPoints().addAll(newPoints); // Add new points
-
+            // Convert the RouteDTO to the existing Route using the helper method
+            convertToRoute(routeDTO, existingRoute);
+            // Save the updated route and return it
             return routeRepository.save(existingRoute);
         });
     }
 
+    // Delete a route using a route id
     public boolean deleteRoute(Long id) {
+        // Look for using the findById method
         Optional<Route> route = routeRepository.findById(id);
+        // If it exists
         if (route.isPresent()) {
+            // Delete the route
             routeRepository.delete(route.get());
+            // Return true
             return true;
         }
+        // If it doesn't exist return false
         return false;
     }
 }
