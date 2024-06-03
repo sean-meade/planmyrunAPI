@@ -15,8 +15,10 @@ public class Point {
     @Column(nullable = false)
     private double longitude;
 
+    // Many-to-one relationship with Route
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "route_id")
+    // prevents json recursion
     @JsonBackReference
     private Route route;
 

@@ -1,7 +1,7 @@
 package ie.planmyrun.api.planmyrunAPI.dto;
-
-import java.util.List;
-
+// A Data Transfer Object (DTO) is a design pattern used to transfer data
+// between different layers of an application
+// Data Transfer Object for a Point
 public class PointDTO {
     private double latitude;
     private double longitude;

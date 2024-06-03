@@ -14,7 +14,9 @@ public class Route {
     @Column(nullable = false)
     private String name;
 
+    // One-to-many relationship with Point
     @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    // prevents json recursion
     @JsonManagedReference
     private List<Point> points = new ArrayList<>();
 
