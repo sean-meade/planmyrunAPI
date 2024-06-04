@@ -32,6 +32,8 @@ The API is built using the Spring Boot framework.
 This is the base URL when running locally
 BASE_URL = http://localhost:8080/api/route/
 
+Included is swagger for easier use of each request and can be found at: http://localhost:8080/swagger-ui/index.html
+
 ##### Get all routes
 
 Type of HTTP request: `GET`
