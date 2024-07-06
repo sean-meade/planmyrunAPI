@@ -10,6 +10,6 @@ FROM openjdk:21-jdk-slim
 
 EXPOSE 8080
 
-COPY --from=target /target/planmyrunAPI-1.jar app.jar
+COPY /target/planmyrunAPI-1.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
