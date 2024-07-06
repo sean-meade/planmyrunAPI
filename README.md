@@ -1,4 +1,7 @@
 # planmyrunAPI
+
+Link to live hosted API Swagger UI: https://planmyrunapi.onrender.com/swagger-ui/index.html
+
 API to perform CRUD functionality of routes for PlanMyRun V4 with a PostgreSQL database.
 
 #### Database Models
