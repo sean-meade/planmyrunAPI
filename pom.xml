@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ie.planmyrun.api</groupId>
 	<artifactId>planmyrunAPI</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1</version>
 	<name>planmyrunAPI</name>
 	<description>API that services planmyrun.ie</description>
 	<properties>

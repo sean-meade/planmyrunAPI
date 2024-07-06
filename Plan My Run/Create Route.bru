@@ -1,0 +1,26 @@
+meta {
+  name: Create Route
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/api/route/create
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+          "name": "Third Route",
+          "points": [
+              {"latitude": 12.3456, "longitude": -3.5423},
+              {"latitude": 13.3456, "longitude": -4.5423},
+              {"latitude": 11.3456, "longitude": -5.5423}
+          ]
+      }
+}

@@ -1,0 +1,25 @@
+meta {
+  name: Edit Route
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8080/api/route/edit/2
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+          "name": "Updated Route",
+          "points": [
+              {"latitude": 12.3456, "longitude": -3.5423},
+              {"latitude": 33.3456, "longitude": -4.5423}
+          ]
+      }
+}

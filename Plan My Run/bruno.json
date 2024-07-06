@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Plan My Run",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
