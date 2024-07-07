@@ -21,9 +21,8 @@ import java.util.Optional;
 @RequestMapping("")
 public class HomeController {
 
-    @GetMapping("")
+    @GetMapping("/")
     public ModelAndView redirectWithUsingRedirectPrefix(ModelMap model) {
-        model.addAttribute("attribute", "redirectWithRedirectPrefix");
-        return new ModelAndView("redirect:/swagger-ui/index.html", model);
+        return new ModelAndView("redirect:/swagger-ui/index.html");
     }
 }
