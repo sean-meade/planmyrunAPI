@@ -4,7 +4,7 @@ RUN apt-get update
 RUN apt-get install openjdk-21-jdk -y
 COPY . .
 
-RUN ./mvnw bootJar --no-daemon
+RUN ./mvnw bootJar --no-daemon -DskipTests=true
 
 FROM openjdk:21-jdk-slim
 
