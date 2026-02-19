@@ -46,9 +46,10 @@ public class AccountStatusController {
 
     /**
      * Create a new account. Requires X-API-Key. At least one of email or phoneNumber must be provided.
+     * Handles both POST /api/account and POST /api/account/
      */
     @PostMapping(
-        value = "",
+        value = { "", "/" },
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )

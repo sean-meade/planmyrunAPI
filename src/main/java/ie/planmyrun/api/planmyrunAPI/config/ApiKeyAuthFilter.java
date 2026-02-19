@@ -24,7 +24,7 @@ import java.io.IOException;
 public class ApiKeyAuthFilter extends OncePerRequestFilter {
 
     private static final String API_KEY_HEADER = "X-API-Key";
-    private static final String ACCOUNT_PATH_PREFIX = "/api/account/";
+    private static final String ACCOUNT_PATH_PREFIX = "/api/account";
 
     private static final Logger log = LoggerFactory.getLogger(ApiKeyAuthFilter.class);
 
@@ -36,7 +36,8 @@ public class ApiKeyAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        if (!request.getRequestURI().startsWith(ACCOUNT_PATH_PREFIX)) {
+        String path = request.getRequestURI();
+        if (!path.equals(ACCOUNT_PATH_PREFIX) && !path.startsWith(ACCOUNT_PATH_PREFIX + "/")) {
             filterChain.doFilter(request, response);
             return;
         }
