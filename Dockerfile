@@ -6,7 +6,7 @@ COPY . .
 
 RUN ./mvnw bootJar --no-daemon
 
-FROM openjdk:21-jdk-slim
+FROM eclipse-temurin:21-jre-jammy
 
 EXPOSE 8080
 
