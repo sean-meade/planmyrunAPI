@@ -2,11 +2,14 @@ package ie.planmyrun.api.planmyrunAPI.controller;
 
 import ie.planmyrun.api.planmyrunAPI.dto.AccountStatusRequest;
 import ie.planmyrun.api.planmyrunAPI.dto.AccountStatusResponse;
+import ie.planmyrun.api.planmyrunAPI.dto.CreateAccountRequest;
+import ie.planmyrun.api.planmyrunAPI.entity.Account;
 import ie.planmyrun.api.planmyrunAPI.service.AccountStatusService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,5 +42,18 @@ public class AccountStatusController {
             request.getUser_identifier() != null ? request.getUser_identifier().length() : 0);
         AccountStatusResponse response = accountStatusService.checkStatus(request.getUser_identifier());
         return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Create a new account. Requires X-API-Key. At least one of email or phoneNumber must be provided.
+     */
+    @PostMapping(
+        value = "",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Account> createAccount(@Valid @RequestBody CreateAccountRequest request) {
+        Account created = accountStatusService.createAccount(request);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 }

@@ -1,6 +1,7 @@
 package ie.planmyrun.api.planmyrunAPI.service;
 
 import ie.planmyrun.api.planmyrunAPI.dto.AccountStatusResponse;
+import ie.planmyrun.api.planmyrunAPI.dto.CreateAccountRequest;
 import ie.planmyrun.api.planmyrunAPI.entity.Account;
 import ie.planmyrun.api.planmyrunAPI.entity.AccountStatus;
 import ie.planmyrun.api.planmyrunAPI.exception.AccountNotFoundException;
@@ -73,5 +74,35 @@ public class AccountStatusService {
     private static String normalizePhone(String phone) {
         if (phone == null) return null;
         return phone.replaceAll("\\s+", "").replaceAll("[^0-9+]", "");
+    }
+
+    /**
+     * Create a new account. At least one of email or phoneNumber must be provided.
+     * Email and phoneNumber must be unique.
+     */
+    public Account createAccount(CreateAccountRequest request) {
+        if (request == null) {
+            throw new IllegalArgumentException("Request body is required");
+        }
+        String email = request.getEmail();
+        String phoneNumber = request.getPhoneNumber();
+        if ((email == null || email.isBlank()) && (phoneNumber == null || phoneNumber.isBlank())) {
+            throw new IllegalArgumentException("At least one of email or phoneNumber is required");
+        }
+        if (email != null && !email.isBlank() && accountRepository.findByEmailIgnoreCase(email).isPresent()) {
+            throw new IllegalArgumentException("An account with this email already exists");
+        }
+        String normalizedPhone = normalizePhone(phoneNumber);
+        if (normalizedPhone != null && !normalizedPhone.isBlank()
+            && accountRepository.findByPhoneNumber(normalizedPhone).isPresent()) {
+            throw new IllegalArgumentException("An account with this phone number already exists");
+        }
+        Account account = new Account();
+        account.setEmail(email != null && !email.isBlank() ? email.trim() : null);
+        account.setPhoneNumber(normalizedPhone);
+        account.setStatus(request.getStatus() != null ? request.getStatus() : AccountStatus.ACTIVE);
+        account = accountRepository.save(account);
+        log.info("Account created, id={}", account.getId());
+        return account;
     }
 }

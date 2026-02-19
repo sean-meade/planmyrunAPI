@@ -1,6 +1,6 @@
 # Account Status API (Retell Voice AI)
 
-Endpoint for the Retell voice AI agent to check whether a caller’s account is active (e.g. “Is my account active?”).
+Endpoints for account status (Retell voice AI) and creating account records.
 
 ## Endpoint
 
@@ -74,3 +74,38 @@ An account is **active** if it exists and its status is `ACTIVE` (not `SUSPENDED
 ## Performance
 
 The endpoint is intended to respond in under 5 seconds to avoid voice agent timeouts (caller uses a 10s timeout).
+
+---
+
+## Create account (add a record)
+
+- **Method:** `POST`
+- **Path:** `/api/account`
+- **Authentication:** Same `X-API-Key` header as above.
+
+**Request body:**
+
+| Field        | Type   | Required | Description                          |
+|-------------|--------|----------|--------------------------------------|
+| `email`     | string | No*      | Valid email (unique)                 |
+| `phoneNumber` | string | No*    | Phone number (unique)               |
+| `status`    | string | No       | `ACTIVE`, `SUSPENDED`, or `DELETED`; default `ACTIVE` |
+
+\*At least one of `email` or `phoneNumber` must be provided.
+
+**Example:**
+
+```json
+{
+  "email": "user@example.com",
+  "phoneNumber": "+353 1 234 5678",
+  "status": "ACTIVE"
+}
+```
+
+**Success (201 Created):** Returns the created account (id, email, phoneNumber, status).
+
+**Errors:**
+
+- **400** – Missing both email and phoneNumber, or invalid email, or duplicate email/phone.
+- **401** – Missing or invalid API key.
